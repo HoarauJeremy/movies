@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movies/widgets/category_button.dart';
+import 'package:movies/widgets/movie_card.dart';
+import 'package:movies/widgets/movies_tile.dart';
 
 class HomePage extends StatelessWidget {
   // final String moviePics, synopsys;
@@ -9,6 +12,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var category = ["Tous"];
+    List<String> category = ["Tous", "Western", "Horreur", "Comédie", "Action"];
+
     return Scaffold(
       backgroundColor: Colors.green,
       appBar: AppBar(
@@ -24,53 +30,17 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              //CARD avec elevation 5
               width: 500,
+              height: 70,
               decoration: BoxDecoration(color: Colors.amberAccent),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () => "",
-                        child: Text(
-                          "Tous",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () => "",
-                        child: Text(
-                          "Western",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () => "",
-                        child: Text(
-                          "Horreur",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () => "",
-                        child: Text(
-                          "Comédie",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () => "",
-                        child: Text(
-                          "Action",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: category.length,
+                  itemBuilder: (context, index) {
+                    return CategoryButton(name: category[index]);
+                  },
                 ),
               ),
             ),
@@ -78,111 +48,15 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 250,
               width: 500,
-              child: SingleChildScrollView(
+              child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(10),
-                              child: Image.asset(
-                                "assets/images/monkey.jpg",
-                                width: 400,
-                                height: 300,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 8,
-                              right: 8,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 10,
-                                child: /* IconButton(
-                                  onPressed: () => print("Play"),
-                                  icon: */ Icon(
-                                  Icons.play_arrow,
-                                  size: 18,
-                                  color: Colors.red,
-                                ),
-                                // ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(10),
-                              child: Image.asset(
-                                "assets/images/monkey.jpg",
-                                width: 400,
-                                height: 300,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 8,
-                              right: 8,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 10,
-                                child: /* IconButton(
-                                  onPressed: () => print("Play"),
-                                  icon: */ Icon(
-                                  Icons.play_arrow,
-                                  size: 18,
-                                  color: Colors.red,
-                                ),
-                                // ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(10),
-                              child: Image.asset(
-                                "assets/images/monkey.jpg",
-                                width: 400,
-                                height: 300,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 8,
-                              right: 8,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 10,
-                                child: /* IconButton(
-                                  onPressed: () => print("Play"),
-                                  icon: */ Icon(
-                                  Icons.play_arrow,
-                                  size: 18,
-                                  color: Colors.red,
-                                ),
-                                // ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: MovieCard(),
+                  );
+                },
               ),
             ),
 
@@ -192,42 +66,7 @@ class HomePage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3.0),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  "assets/images/monkey2.jpg",
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return MoviesTile();
                 },
               ),
             ),
